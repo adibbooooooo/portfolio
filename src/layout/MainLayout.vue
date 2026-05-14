@@ -85,6 +85,13 @@
                                 :ref="el => registerTab(el, '/demo')">skill.demo</a>
                         </RouterLink>
 
+                        <!-- Personality -->
+                        <RouterLink to="/personality" custom v-slot="{ href, navigate, isActive }">
+                            <a :href="href" @click="navigate" class="code-tab"
+                                :class="isActive ? 'text-white' : 'hover:text-white'"
+                                :ref="el => registerTab(el, '/personality')">my.personality</a>
+                        </RouterLink>
+
                         <!-- Experience -->
                         <RouterLink to="/experience" custom v-slot="{ href, navigate, isActive }">
                             <a :href="href" @click="navigate" class="code-tab"
@@ -101,7 +108,7 @@
                         <div class="flex items-center gap-4">
                             <span
                                 class="rounded-md bg-emerald-500/15 px-2 py-0.5 text-emerald-300 ring-1 ring-emerald-400/30 select-none">
-                                ● Open to new work
+                                ● Fully focused
                             </span>
                             <span class="hidden text-neutral-400 sm:inline">
                                 Kuala Lumpur, Malaysia • My time: {{ timeKL }}
@@ -147,7 +154,7 @@
             <div class="flex items-center justify-between">
                 <span
                     class="rounded-md bg-emerald-500/15 px-2 py-0.5 text-emerald-300 ring-1 ring-emerald-400/30 select-none text-[12px]">●
-                    Open to new work</span>
+                    Fully focused</span>
                 <span class="text-neutral-400 text-[12px]">{{ timeKL }}</span>
             </div>
         </footer>
@@ -183,6 +190,14 @@
                             <a :href="href" @click.prevent="navigate(); closeNav()"
                                 :class="[navLinkClass, isActive ? 'bg-white/10 text-white' : '']">
                                 skill.demo
+                            </a>
+                        </RouterLink>
+
+                        <!-- my.personality -->
+                        <RouterLink to="/personality" custom v-slot="{ href, navigate, isActive }">
+                            <a :href="href" @click.prevent="navigate(); closeNav()"
+                                :class="[navLinkClass, isActive ? 'bg-white/10 text-white' : '']">
+                                my.personality
                             </a>
                         </RouterLink>
 
