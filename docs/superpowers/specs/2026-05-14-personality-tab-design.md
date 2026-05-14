@@ -26,7 +26,7 @@ Single route `/personality` with **segmented in-page tabs** (same visual pattern
 
 | Panel | Tab label (code-style) | Purpose                                                                                                                                                                                                         |
 | ----- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| A     | `my.fit`               | Comprehensive stakeholder content: team fit, impact, productivity, growth, working style. Curated copy derived primarily from Crystal; ISTP only where it adds cognition without duplicating short MBTI blurbs. |
+| A     | `my.fit`               | **Recruiter skim (~10 s):** glance deck — minimal copy, compact signals, optional handbook handoff. Long narrative lives in `my.handbook` only. |
 | B     | `my.handbook`          | Detailed export: Crystal chapters in handbook order, then ISTP cognitive material. **Collapsible sections** (accordion or `<details>`) per chapter / major part so the panel stays navigable.                   |
 
 
@@ -34,21 +34,21 @@ Single route `/personality` with **segmented in-page tabs** (same visual pattern
 
 ## Content mapping (`my.fit`)
 
-Structured subsections (headings + short paragraphs / bullets), aligned to hiring questions:
+**Primary reader:** hiring manager / recruiter **10-second skim** (choice **A**).
 
-- **Team fit:** work style, collaboration preference, role on teams; thrive vs struggle environments (Crystal career + natural style).
-- **Impact and results:** strengths at best, behavior, values (Crystal).
-- **Productivity:** decision process, energy charged/drained (Crystal).
-- **Growth:** career-fit themes as “what I optimize for” (execution, product, technical leadership) — narrative, not a job-title checklist (Crystal career).
-- **Working with me:** communication, feedback and meetings, blind spots (Crystal — honest counterbalance).
+Structured answers stay **one line per theme** on screen; extended bullets and assessment prose live under **`my.handbook`**.
 
-### `my.fit` v2 — visuals, motion, Virtuoso lane (approved)
+### `my.fit` v3 — glance deck (current)
 
-- **Layout:** Bento-style grid (wider “Team fit”, paired tiles for other themes) + a **signal strip** above (ISTP‑T / Virtuoso, DISC, Enneagram, optional percentile bars from assessments).
-- **Graphics:** PrimeIcons + inline SVG / simple bars; no third-party character imagery — **initials** on figure cards only.
-- **Micro-interactions:** Card hover (lift, emerald border), expandable bullets where useful, focus rings for keyboard.
-- **Micro-animations:** `motion-v` stagger on enter; bar widths animate in view; `**prefers-reduced-motion`** disables non-essential motion.
-- `**virtuoso.lane`:** Horizontal **scroll-snap** row of figures often grouped with **ISTP / Virtuoso** in community typing — **mix of fiction and public-life names (choice C)** with a clear disclaimer that typing is speculative, not verified psychology and not an endorsement by 16Personalities or named people.
+- **Type row:** ISTP‑T · Virtuoso · operator + compact I‑S‑T‑P glyphs (no paragraph).
+- **Signals:** Small framework chips + **two** percentile bars (not three) to reduce noise.
+- **Tiles:** Six cards in a **2×3 / 3×2** grid — five hiring dimensions + one **Evidence** tile (click → `my.handbook`). No bullet lists on the surface.
+- **Virtuoso lane:** **Pills only** (initials + truncated name + `fiction` / `public`); full note on **hover `title`**. One-line disclaimer.
+- **Motion:** Light stagger and hover nudge; respect **`prefers-reduced-motion`**.
+
+### `my.fit` v2 (superseded)
+
+Bento + long bullets + scroll cards — retired in favor of v3 skim-first layout.
 
 ## Content mapping (`my.handbook`)
 
@@ -65,7 +65,7 @@ Structured subsections (headings + short paragraphs / bullets), aligned to hirin
 ## Implementation shape (for planning — not executed in this doc)
 
 - New `PersonalityPage.vue` (or equivalent) using `EditorScaffold`.
-- Content in a dedicated module (e.g. `personalityContent.ts`) split into `fitSections` and `handbookChapters` to avoid an oversized SFC.
+- Content in dedicated modules: `personalityGlanceDeck.ts`, `personalityFitSignals.ts`, `personalityVirtuosoLane.ts`, handbook parsers.
 - Router + `MainLayout.vue`: register route, desktop tabs, mobile sheet, tab indicator `registerTab` map keys.
 
 ## Out of scope

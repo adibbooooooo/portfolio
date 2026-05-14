@@ -8,9 +8,9 @@
                 <p class="text-white/60 text-[12px] max-w-2xl">
                     {{ '<!-- Decisive operator lens: how I fit teams, ship impact, and collaborate — plus the full handbook -->' }}
                 </p>
-                <p class="mt-3 text-sm text-white/75 max-w-2xl leading-relaxed">
-                    Relentless catalyst energy: clarity, ownership, and creative execution under pressure — with the receipts
-                    below if you want every assessment chapter in full.
+                <p class="mt-3 text-sm text-white/65 max-w-xl leading-snug">
+                    Skim <span class="text-emerald-200/90">my.fit</span> in seconds; depth lives in
+                    <span class="text-white/50">my.handbook</span>.
                 </p>
             </header>
 
