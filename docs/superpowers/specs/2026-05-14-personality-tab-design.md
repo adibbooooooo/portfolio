@@ -12,19 +12,23 @@
 
 ## Navigation and routing
 
-| Layer | Label (UI) | Path / behavior |
-|-------|----------------|-----------------|
-| Site top tab (desktop + mobile sheet) | `my.personality` | `/personality` |
-| Tab order | `my.info` → `skill.demo` → **`my.personality`** → `work.experience` | Router `meta.order` updated accordingly |
+
+| Layer                                 | Label (UI)                                                          | Path / behavior                         |
+| ------------------------------------- | ------------------------------------------------------------------- | --------------------------------------- |
+| Site top tab (desktop + mobile sheet) | `my.personality`                                                    | `/personality`                          |
+| Tab order                             | `my.info` → `skill.demo` → `**my.personality`** → `work.experience` | Router `meta.order` updated accordingly |
+
 
 ## In-page structure (Approach 2)
 
 Single route `/personality` with **segmented in-page tabs** (same visual pattern as `WorkPage.vue` demo category tabs: bordered pill group, emerald active state).
 
-| Panel | Tab label (code-style) | Purpose |
-|-------|-------------------------|---------|
-| A | `my.fit` | Comprehensive stakeholder content: team fit, impact, productivity, growth, working style. Curated copy derived primarily from Crystal; ISTP only where it adds cognition without duplicating short MBTI blurbs. |
-| B | `my.handbook` | Detailed export: Crystal chapters in handbook order, then ISTP cognitive material. **Collapsible sections** (accordion or `<details>`) per chapter / major part so the panel stays navigable. |
+
+| Panel | Tab label (code-style) | Purpose                                                                                                                                                                                                         |
+| ----- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A     | `my.fit`               | Comprehensive stakeholder content: team fit, impact, productivity, growth, working style. Curated copy derived primarily from Crystal; ISTP only where it adds cognition without duplicating short MBTI blurbs. |
+| B     | `my.handbook`          | Detailed export: Crystal chapters in handbook order, then ISTP cognitive material. **Collapsible sections** (accordion or `<details>`) per chapter / major part so the panel stays navigable.                   |
+
 
 **URL sync (recommended):** Query string `?view=fit` and `?view=handbook` (or equivalent) synced with the active in-page tab for shareable links and predictable back/forward. Default when missing: `fit`.
 
@@ -37,6 +41,14 @@ Structured subsections (headings + short paragraphs / bullets), aligned to hirin
 - **Productivity:** decision process, energy charged/drained (Crystal).
 - **Growth:** career-fit themes as “what I optimize for” (execution, product, technical leadership) — narrative, not a job-title checklist (Crystal career).
 - **Working with me:** communication, feedback and meetings, blind spots (Crystal — honest counterbalance).
+
+### `my.fit` v2 — visuals, motion, Virtuoso lane (approved)
+
+- **Layout:** Bento-style grid (wider “Team fit”, paired tiles for other themes) + a **signal strip** above (ISTP‑T / Virtuoso, DISC, Enneagram, optional percentile bars from assessments).
+- **Graphics:** PrimeIcons + inline SVG / simple bars; no third-party character imagery — **initials** on figure cards only.
+- **Micro-interactions:** Card hover (lift, emerald border), expandable bullets where useful, focus rings for keyboard.
+- **Micro-animations:** `motion-v` stagger on enter; bar widths animate in view; `**prefers-reduced-motion`** disables non-essential motion.
+- `**virtuoso.lane`:** Horizontal **scroll-snap** row of figures often grouped with **ISTP / Virtuoso** in community typing — **mix of fiction and public-life names (choice C)** with a clear disclaimer that typing is speculative, not verified psychology and not an endorsement by 16Personalities or named people.
 
 ## Content mapping (`my.handbook`)
 
@@ -66,3 +78,4 @@ Structured subsections (headings + short paragraphs / bullets), aligned to hirin
 - `/personality` loads; `my.personality` appears before `work.experience` in desktop and mobile nav.
 - In-page tabs switch panels; URL query (if implemented) stays in sync.
 - Keyboard navigation on tabs and collapsibles; no duplicate `h1`.
+

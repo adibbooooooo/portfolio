@@ -37,15 +37,8 @@
             </div>
 
             <!-- my.fit -->
-            <div id="panel-fit" v-show="view === 'fit'" role="tabpanel" aria-labelledby="tab-fit" class="mt-8 space-y-8">
-                <article v-for="s in fitSections" :key="s.id"
-                    class="rounded-xl border border-white/10 bg-[#141414] px-4 py-5 md:px-6 md:py-6">
-                    <h2 class="text-lg md:text-xl font-semibold text-white mb-2">{{ s.title }}</h2>
-                    <p class="text-[14px] text-white/75 leading-relaxed">{{ s.lead }}</p>
-                    <ul class="mt-3 list-disc list-inside text-[14px] text-white/80 leading-7 space-y-1.5">
-                        <li v-for="(b, i) in s.bullets" :key="i">{{ b }}</li>
-                    </ul>
-                </article>
+            <div id="panel-fit" v-show="view === 'fit'" role="tabpanel" aria-labelledby="tab-fit">
+                <PersonalityFitPanel />
             </div>
 
             <!-- my.handbook -->
@@ -82,7 +75,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import EditorScaffold from '@/components/EditorScaffold.vue'
-import { fitSections } from '@/data/personalityFit'
+import PersonalityFitPanel from '@/components/PersonalityFitPanel.vue'
 import { parseCrystalHandbook, parseIstpHandbook } from '@/lib/personalityHandbook'
 
 type InnerView = 'fit' | 'handbook'
