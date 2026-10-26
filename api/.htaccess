@@ -1,0 +1,4 @@
+# Keep /api/*.php executable when parent dir uses SPA fallback rules
+<IfModule mod_rewrite.c>
+  RewriteEngine Off
+</IfModule>

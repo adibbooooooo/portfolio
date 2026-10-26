@@ -13,6 +13,12 @@ dist
 dist-ssr
 coverage
 *.local
+.env
+api/config.local.php
+knowledge/chunks.json
+
+# Raw screen recordings — serve compressed mp4/webm instead
+public/*.mov
 
 # Editor directories and files
 .vscode/*

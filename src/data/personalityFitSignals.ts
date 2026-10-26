@@ -42,5 +42,4 @@ export const fitSignals: FitSignal[] = [
     },
     { kind: 'bar', id: 'es', label: 'Emotional stability (Big Five)', percent: 89 },
     { kind: 'bar', id: 'c', label: 'Conscientiousness', percent: 78 },
-    { kind: 'bar', id: 'acc', label: 'Profile accuracy (Crystal)', percent: 60 },
 ]

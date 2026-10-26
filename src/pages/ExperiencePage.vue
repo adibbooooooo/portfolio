@@ -119,6 +119,26 @@ type Exp = {
 /* DATA */
 const data = ref<Exp[]>([
     {
+        id: 'current',
+        type: 'Work',
+        company: 'Infomina Bhd',
+        role: 'Senior Software Engineer',
+        summary: 'Developing and maintaining existing applications while migrating legacy codebases to latest stack.',
+        period: 'Feb 2026 — May 2026',
+        location: 'Kuala Lumpur, MY',
+        bullets: [
+            'Developing and enhancing existing production applications.',
+            'Migrating legacy code codebase to modern architecture, APIs and data flows.',
+        ],
+        stack: [
+            { name: 'Laravel', level: 'Core' },
+            { name: 'Vue 3', level: 'Core' },
+            { name: 'NuxtJS', level: 'Strong' },
+            { name: 'Docker', level: 'Strong' },
+            { name: 'Oracle', level: 'Working' },
+        ],
+    },
+    {
         id: 'fortifi',
         type: 'Work',
         company: 'Fortifi Sdn Bhd',

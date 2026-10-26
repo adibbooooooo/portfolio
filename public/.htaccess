@@ -1,0 +1,15 @@
+# SPA fallback for Vue Router (history mode) on Apache / cPanel.
+# Serves index.html for routes like /demo, /personality, /experience.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Leave real files and directories alone (assets, images, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else → app shell
+  RewriteRule ^ index.html [L]
+</IfModule>

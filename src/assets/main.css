@@ -130,6 +130,18 @@ body {
 .fade-left > *:nth-child(5) { animation-delay: 0.25s }
 .fade-left > *:nth-child(6) { animation-delay: 0.3s }
 
+.fade-left--done > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
+}
+
+html.app-boot-lock,
+html.app-boot-lock body {
+    overflow: hidden !important;
+    height: 100%;
+}
+
 @keyframes fadeLeft {
     from {
         opacity: 0;

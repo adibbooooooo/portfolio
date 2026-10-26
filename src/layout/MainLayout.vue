@@ -35,10 +35,26 @@
                         <i class="pi pi-language"></i>Malay, English
                     </li>
                     <li class="flex items-center gap-3">
-                        <i class="pi pi-envelope"></i>work@adibomar.com
+                        <i class="pi pi-envelope"></i>
+                        <a :href="emailHref" class="contact-link" aria-label="Email Adib">
+                            work@adibomar.com
+                        </a>
                     </li>
                     <li class="flex items-center gap-3">
-                        <i class="pi pi-phone"></i>+60 11 6177 0407
+                        <i class="pi pi-phone"></i>
+                        <a :href="phoneHref" class="contact-link" aria-label="Call Adib">
+                            +60 11 6177 0407
+                        </a>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="pi pi-linkedin"></i>
+                        <a
+                            href="https://www.linkedin.com/in/adibomar/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="contact-link">
+                            linkedin.com/in/adibomar
+                        </a>
                     </li>
                 </ul>
 
@@ -78,18 +94,18 @@
                                 :ref="el => registerTab(el, '/')">my.info</a>
                         </RouterLink>
 
-                        <!-- Work -->
-                        <RouterLink to="/demo" custom v-slot="{ href, navigate, isActive }">
-                            <a :href="href" @click="navigate" class="code-tab"
-                                :class="isActive ? 'text-white' : 'hover:text-white'"
-                                :ref="el => registerTab(el, '/demo')">skill.demo</a>
-                        </RouterLink>
-
                         <!-- Personality -->
                         <RouterLink to="/personality" custom v-slot="{ href, navigate, isActive }">
                             <a :href="href" @click="navigate" class="code-tab"
                                 :class="isActive ? 'text-white' : 'hover:text-white'"
                                 :ref="el => registerTab(el, '/personality')">my.personality</a>
+                        </RouterLink>
+
+                        <!-- Work -->
+                        <RouterLink to="/work" custom v-slot="{ href, navigate, isActive }">
+                            <a :href="href" @click="navigate" class="code-tab"
+                                :class="isActive ? 'text-white' : 'hover:text-white'"
+                                :ref="el => registerTab(el, '/work')">work.showcase</a>
                         </RouterLink>
 
                         <!-- Experience -->
@@ -106,10 +122,12 @@
 
                     <FadeInLeft>
                         <div class="flex items-center gap-4">
-                            <span
-                                class="rounded-md bg-emerald-500/15 px-2 py-0.5 text-emerald-300 ring-1 ring-emerald-400/30 select-none">
-                                ● Fully focused
-                            </span>
+                            <button
+                                type="button"
+                                class="rounded-md bg-emerald-500/15 px-2 py-0.5 text-emerald-300 ring-1 ring-emerald-400/30 cursor-pointer transition hover:bg-emerald-500/25 hover:ring-emerald-400/50"
+                                @click="openContactModal">
+                                ● Open for Collaboration
+                            </button>
                             <span class="hidden text-neutral-400 sm:inline">
                                 Kuala Lumpur, Malaysia • My time: {{ timeKL }}
                             </span>
@@ -152,9 +170,12 @@
         <!-- floating action row -->
         <footer class="px-3 py-2 border-t border-seperator bg-[#181818]">
             <div class="flex items-center justify-between">
-                <span
-                    class="rounded-md bg-emerald-500/15 px-2 py-0.5 text-emerald-300 ring-1 ring-emerald-400/30 select-none text-[12px]">●
-                    Fully focused</span>
+                <button
+                    type="button"
+                    class="rounded-md bg-emerald-500/15 px-2 py-0.5 text-emerald-300 ring-1 ring-emerald-400/30 cursor-pointer text-[12px] transition hover:bg-emerald-500/25"
+                    @click="openContactModal">
+                    ● Open for Collaboration
+                </button>
                 <span class="text-neutral-400 text-[12px]">{{ timeKL }}</span>
             </div>
         </footer>
@@ -185,19 +206,19 @@
                             </a>
                         </RouterLink>
 
-                        <!-- skill.demo -->
-                        <RouterLink to="/demo" custom v-slot="{ href, navigate, isActive }">
-                            <a :href="href" @click.prevent="navigate(); closeNav()"
-                                :class="[navLinkClass, isActive ? 'bg-white/10 text-white' : '']">
-                                skill.demo
-                            </a>
-                        </RouterLink>
-
                         <!-- my.personality -->
                         <RouterLink to="/personality" custom v-slot="{ href, navigate, isActive }">
                             <a :href="href" @click.prevent="navigate(); closeNav()"
                                 :class="[navLinkClass, isActive ? 'bg-white/10 text-white' : '']">
                                 my.personality
+                            </a>
+                        </RouterLink>
+
+                        <!-- work.showcase -->
+                        <RouterLink to="/work" custom v-slot="{ href, navigate, isActive }">
+                            <a :href="href" @click.prevent="navigate(); closeNav()"
+                                :class="[navLinkClass, isActive ? 'bg-white/10 text-white' : '']">
+                                work.showcase
                             </a>
                         </RouterLink>
 
@@ -269,6 +290,10 @@
             </div>
         </div>
     </transition>
+
+    <ContactModal />
+    <AskAdibModal />
+    <AskAdibFab />
 </template>
 
 <script setup lang="ts">
@@ -276,6 +301,12 @@ import { ref, reactive, computed, watch, onMounted, onBeforeUnmount, nextTick } 
 import { RouterLink, useRoute } from 'vue-router'
 import FadeInLeft from '@/components/FadeInLeft.vue'
 import VariantButton from '@/components/VariantButton.vue'
+import ContactModal from '@/components/ContactModal.vue'
+import AskAdibModal from '@/components/ask/AskAdibModal.vue'
+import AskAdibFab from '@/components/ask/AskAdibFab.vue'
+import { useContactModal } from '@/composables/useContactModal'
+
+const { openContactModal } = useContactModal()
 
 /* ---------- Desktop: experience years ---------- */
 const yearsOfExperience = computed(() => {
@@ -287,6 +318,10 @@ const yearsOfExperience = computed(() => {
         (now.getMonth() === start.getMonth() && now.getDate() >= start.getDate())
     return hasPassedMonth ? diff : diff - 1
 })
+
+const emailHref =
+    "mailto:work@adibomar.com?subject=Let's%20Work%20Together&body=Hi%20Adib,%0D%0A%0D%0AI%20found%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20or%20collaboration.%0D%0A%0D%0ARegards,%0D%0A[Your%20Name]"
+const phoneHref = 'tel:+601161770407'
 
 /* ---------- KL clock ---------- */
 const now = ref(new Date())
@@ -528,5 +563,14 @@ function downloadCv(type: 'ats' | 'normal') {
 .btn.ghost.on {
     border-color: rgba(16, 185, 129, .6);
     color: #a7f3d0;
+}
+
+.contact-link {
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.contact-link:hover {
+    color: #34d399;
 }
 </style>

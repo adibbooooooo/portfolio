@@ -19,17 +19,31 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useIntroSession } from '@/composables/useIntroSession'
 
 const typedEl = ref<HTMLSpanElement | null>(null)
 const caretVisible = ref(true)
+const { introHeroComplete, markIntroHeroComplete } = useIntroSession()
 
 const cps = 50
 
 const fullHtml = `Passionate about <span class="mark" style="--d:0s">delivering quality</span> and <span class="mark" style="--d:0s">guiding ideas</span> from concept to completion. I believe great work starts with <span class="mark" style="--d:.12s">ownership</span>, <span class="mark" style="--d:.24s">clarity</span> and <span class="mark" style="--d:.36s">purpose</span>`
 
-onMounted(() => {
-
+function showFinalMotto() {
     if (!typedEl.value) return
+    typedEl.value.innerHTML = fullHtml
+    caretVisible.value = false
+    markIntroHeroComplete()
+}
+
+onMounted(() => {
+    if (!typedEl.value) return
+
+    if (introHeroComplete.value) {
+        showFinalMotto()
+        return
+    }
+
     typedEl.value.innerHTML = ''
 
     let i = 0
@@ -51,7 +65,7 @@ onMounted(() => {
         if (i < fullHtml.length) {
             requestAnimationFrame(step)
         } else {
-            caretVisible.value = false
+            showFinalMotto()
         }
     }
 

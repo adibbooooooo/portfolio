@@ -3,6 +3,42 @@ import istpRaw from '@/data/personality/istp-weapons-specialist.txt?raw'
 
 export type TextChunk = { id: string; title: string; body: string }
 
+export type HandbookTocItem = { id: string; label: string }
+export type HandbookTocGroup = { label: string; items: HandbookTocItem[] }
+
+const CRYSTAL_TOC_LABELS = [
+    'Personality',
+    'Assessments',
+    'Natural style',
+    'Decisions',
+    'Energy & stress',
+    'Relationships',
+    'Career',
+    'Personal growth',
+] as const
+
+export function buildHandbookToc(
+    crystal: TextChunk[] = parseCrystalHandbook(),
+    istp: TextChunk[] = parseIstpHandbook()
+): HandbookTocGroup[] {
+    return [
+        {
+            label: 'Crystal handbook',
+            items: crystal.map((ch, idx) => ({
+                id: ch.id,
+                label: CRYSTAL_TOC_LABELS[idx] ?? `Chapter ${idx + 1}`,
+            })),
+        },
+        {
+            label: 'ISTP guide',
+            items: istp.map((ch, idx) => ({
+                id: ch.id,
+                label: istp.length > 1 ? `Part ${idx + 1}` : 'Full export',
+            })),
+        },
+    ]
+}
+
 const CRYSTAL_CHAPTER_LABELS = [
     'Ch.01 — Personality',
     'Ch.02 — Assessments',

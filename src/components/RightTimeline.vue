@@ -1,6 +1,7 @@
 <template>
     <!-- Parent controls position (fixed) via passed classes -->
     <aside v-bind="$attrs">
+        <div class="flex w-full flex-col gap-3">
         <div class="gh-panel relative rounded-[8px] border border-seperator bg-[#1b1b1b]/95 backdrop-blur">
             <div class="gh-header">Navigation</div>
 
@@ -34,15 +35,38 @@
                 </button>
             </nav>
         </div>
+
+        <a
+            v-if="sourceLink"
+            :href="sourceLink.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="gh-source flex items-center justify-between gap-2 rounded-[8px] border border-seperator bg-[#1b1b1b]/95 px-2.5 py-2 backdrop-blur transition-colors hover:bg-white/[0.04]">
+            <span class="gh-source-label">{{ sourceLink.label ?? 'Sources' }}</span>
+            <img
+                :src="sourceLink.iconSrc"
+                alt=""
+                width="18"
+                height="18"
+                class="h-[18px] w-[18px] shrink-0 rounded-full object-cover opacity-90" />
+        </a>
+        </div>
     </aside>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
+export type TimelineSourceLink = {
+    href: string
+    iconSrc: string
+    label?: string
+}
+
 const props = defineProps<{
     items: { id: string; label: string }[]
     rootEl: HTMLElement | null
+    sourceLink?: TimelineSourceLink
 }>()
 
 const activeId = ref(props.items[0]?.id ?? '')
@@ -172,6 +196,20 @@ onBeforeUnmount(() => unbind())
 /* Label */
 .gh-label {
     font-size: 13px;
+}
+
+.gh-source {
+    text-decoration: none;
+    color: inherit;
+}
+
+.gh-source-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.gh-source:hover .gh-source-label {
+    color: rgba(255, 255, 255, 0.75);
 }
 
 /* Small pulse on active dot (optional, comment if not wanted) */

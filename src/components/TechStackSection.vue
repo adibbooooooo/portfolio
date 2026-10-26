@@ -17,7 +17,7 @@
             </h3>
 
             <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                <RouterLink v-for="s in STACK.filter(x => x.group === g)" :key="s.k" :to="tileHref(s.k)"
+                <RouterLink v-for="s in STACK.filter(x => x.group === g)" :key="s.k" :to="tileHref(s)"
                     class="group stack-tile focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60">
                     <!-- low-opacity logo bg -->
                     <span class="stack-bg" aria-hidden="true" :style="bgStyle(s.k)"></span>
@@ -94,9 +94,23 @@
 </template>
 
 <script setup lang="ts">
-const STACK = [
+type StackEntry = {
+    k: string
+    label: string
+    group: 'Frontend' | 'Backend' | 'Tools'
+    level: string
+    recency: string
+    confidence: number
+    desc: string
+    hideDemo?: boolean
+    /** If set, tile links to this WorkPage demo id instead of `k` (e.g. React → Habo GenCards). */
+    toolQuery?: string
+}
+
+const STACK: StackEntry[] = [
     // Frontend
     { k: 'vue', label: 'Vue.js', group: 'Frontend', level: 'Core', recency: 'Daily', confidence: 90, desc: 'Vue 2 & Vue 3 — web apps and dashboards' },
+    { k: 'react', label: 'React', group: 'Frontend', level: 'Strong', recency: 'Weekly', confidence: 82, desc: 'SPAs, hooks, component-driven UIs', toolQuery: 'habo-gencards' },
     { k: 'vite', label: 'Vite', group: 'Frontend', level: 'Core', recency: 'Daily', confidence: 86, desc: 'Dev server, build tooling, DX' },
     { k: 'tailwind', label: 'Tailwind', group: 'Frontend', level: 'Core', recency: 'Daily', confidence: 92, desc: 'Design system & web apps' },
     { k: 'threejs', label: 'Three.js', group: 'Frontend', level: 'Strong', recency: 'Weekly', confidence: 70, desc: '3D modelling & scenes in websites' },
@@ -121,7 +135,8 @@ const STACK = [
 ];
 
 const groups = ['Frontend', 'Backend', 'Tools'];
-const tileHref = (k: string) => `/demo?tool=${encodeURIComponent(k)}`;
+const tileHref = (s: StackEntry) =>
+    `/work?section=demos&tool=${encodeURIComponent(s.toolQuery ?? s.k)}`;
 const tileIcon = (k: string) => `/stack/${k}.png`;
 
 /** Low-opacity logo bg per tile */

@@ -12,37 +12,31 @@ export const glanceTiles: GlanceTile[] = [
     {
         id: 'team',
         title: 'Team fit',
-        line: 'Small skilled squads, clear ownership, outcomes over politics — I unblock and drive decisions.',
+        line: 'Capable teammates, clear ownership, focus on results. I unblock others and drive decisions.',
         icon: 'pi pi-users',
     },
     {
         id: 'impact',
         title: 'Impact',
-        line: 'Ship under ambiguity; hold quality bar; say when something will not survive production.',
+        line: 'Deliver when plans are still forming. High quality bar and early risk flags.',
         icon: 'pi pi-chart-line',
     },
     {
         id: 'productivity',
         title: 'Execution',
-        line: 'Fast commits, course-correct with data; autonomy and measurable wins energize me.',
+        line: 'Move fast, adjust with facts. Autonomy and clear wins keep me engaged.',
         icon: 'pi pi-bolt',
     },
     {
         id: 'growth',
         title: 'Product & scale',
-        line: 'Strategy matters when systems ship — architecture, delivery rhythm, standards that stick.',
+        line: 'Plans that ship for real. Solid design, steady delivery, habits that last.',
         icon: 'pi pi-chart-bar',
     },
     {
         id: 'working',
         title: 'Collaboration',
-        line: 'Direct, agenda-led meetings; feedback with receipts; I watch pace vs. buy-in.',
+        line: 'Direct and prepared. Honest feedback and open discussion on ideas.',
         icon: 'pi pi-comments',
-    },
-    {
-        id: 'evidence',
-        title: 'Evidence',
-        line: 'Full Crystal handbook + ISTP cognitive export — assessments, career fit, blind spots.',
-        icon: 'pi pi-book',
     },
 ]

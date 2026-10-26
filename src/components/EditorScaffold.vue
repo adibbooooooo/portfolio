@@ -75,11 +75,17 @@ onBeforeUnmount(() => {
 })
 
 const getScrollEl = () => contentEl.value
+/** Extra offset so hash / timeline jumps clear the editor tab bar */
+const HASH_SCROLL_OFFSET = 72
+
 const scrollToSelector = (selector: string) => {
     if (!contentEl.value) return
     const el = contentEl.value.querySelector(selector) as HTMLElement | null
     if (!el) return
-    contentEl.value.scrollTo({ top: el.offsetTop - TOP_PAD, behavior: 'smooth' })
+    contentEl.value.scrollTo({
+        top: Math.max(0, el.offsetTop - TOP_PAD - HASH_SCROLL_OFFSET),
+        behavior: 'smooth',
+    })
 }
 
 defineExpose({ getScrollEl, scrollToSelector })

@@ -68,6 +68,12 @@
                             aria-label="Email Adib" class="hover:text-emerald-400 transition">
                             <i class="pi pi-envelope text-[15px]"></i>
                         </a>
+
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/adibomar/" target="_blank" rel="noopener noreferrer"
+                            aria-label="LinkedIn" class="hover:text-emerald-400 transition">
+                            <i class="pi pi-linkedin text-[15px]"></i>
+                        </a>
                     </div>
                 </div>
             </div>

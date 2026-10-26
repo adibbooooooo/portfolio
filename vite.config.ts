@@ -1,9 +1,29 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { templateCompilerOptions } from '@tresjs/core'
+
+function copyApiPhp() {
+  return {
+    name: 'copy-api-php',
+    closeBundle() {
+      const destDir = path.resolve(__dirname, 'dist/api')
+      fs.mkdirSync(destDir, { recursive: true })
+      for (const file of ['ask.php', 'ask_helpers.php', 'bootstrap.php', 'config.example.php', '.htaccess']) {
+        const src = path.resolve(__dirname, 'api', file)
+        if (fs.existsSync(src)) {
+          fs.copyFileSync(src, path.join(destDir, file))
+        }
+      }
+    },
+  }
+}
+
+const devApiProxyTarget = process.env.VITE_DEV_API_PROXY ?? 'http://127.0.0.1:8888/portfolio/dist'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,7 +38,16 @@ export default defineConfig({
       }
     }),
     vueDevTools(),
+    copyApiPhp(),
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: devApiProxyTarget,
+        changeOrigin: true,
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
